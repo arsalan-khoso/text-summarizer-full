@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<head>
+	<title>
+		Text Summarizer
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="css/style.css" />
+
+</head>
+<style>
+	body {
+		background-color: #f0f0f0;
+		font-family: Arial, sans-serif;
+	}
+
+	header {
+		background-color: #333;
+		color: #fff;
+		padding: 20px 0;
+	}
+
+	header a.navbar-brand {
+		color: #fff;
+		font-weight: bold;
+		font-size: 24px;
+	}
+
+	header .navbar-toggle-icon {
+		color: #fff;
+	}
+
+	.container {
+		background-color: #fff;
+		border-radius: 5px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+		margin-top: 20px;
+	}
+
+	.container h1 {
+		font-size: 36px;
+		margin-bottom: 20px;
+	}
+
+	.container p {
+		font-size: 18px;
+	}
+
+	.container textarea {
+		width: 100%;
+		height: 250px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 16px;
+	}
+
+	.container input[type="number"] {
+		width: 100px;
+		height: 40px;
+		padding: 10px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	.container input[type="submit"] {
+		background-color: #333;
+		color: #fff;
+		font-size: 18px;
+		border: none;
+		border-radius: 5px;
+		padding: 10px 20px;
+		cursor: pointer;
+	}
+
+	.container h4 {
+		font-size: 24px;
+		margin-top: 20px;
+	}
+
+	.container #output_text {
+		width: 100%;
+		height: 250px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		font-size: 16px;
+		margin-bottom: 20px;
+	}
+
+	footer {
+		background-color: #333;
+		color: #fff;
+		text-align: center;
+		padding: 10px 0;
+	}
+
+	footer .weblinks-inline li {
+		display: inline-block;
+		font-size: 18px;
+		margin: 0 10px;
+	}
+
+	.copyright {
+		font-size: 14px;
+	}
+</style>
+
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>                        
+				</button>
+				<a class="navbar-brand" href="#input">Summarizer</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<section class = "input container" id = "input">
+		<div class="form-container" id-"sum-section">
+			<form action = "/templates" id="sumform" method = "POST">
+				<p>Enter the text you wish to summarize:</p>
+				<textarea maxlength = "50000" name = "input_text" id = "input_text" style="width:930px; 
+				height:250px" value = "{{request.form['input_text']}}" onInput="TextCounter(this, 32)"></textarea>
+				<p>Enter the summarized number of sentences you like to be outputted: </p>
+				<p>
+					<input type="number" name = "num_sentences" pattern = 
+					"[0-9]+" min = "1" max = "100" required >
+				</p>
+				<p>
+					<input type="submit"  class="btn btn-success btn-md" value="Submit">
+				</p>
+				<h4>Summazrized Text: </h4>
+					{% for sentence in output_summary %}
+					<p>{{ sentence }} </p>
+					{% endfor %}
+				<br>
+				<h4>Original Text:</h4>
+				<p>{{ original_text }}</p>
+			</form>
+		</div>
+		
+	</section>
+
+	<footer>
+        <div class="container">
+            <ul class="list-unstyled weblinks-inline">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <p class="copyright">&copy; 2023 Text Summarizer. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>
